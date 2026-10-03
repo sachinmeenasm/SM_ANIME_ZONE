@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090b14">
+<title>YOUR SITE NAME — Anime Streaming</title>
+<style>
+:root{
+  --bg:#090b14;--panel:#111522;--panel2:#171b2b;--text:#f7f7fb;--muted:#9da4b8;
+  --accent:#00c2ff;--accent2:#7c5cff;--gold:#ffd166;--border:#242a3c;--danger:#ff5277;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100vh;padding-bottom:76px}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.app{max-width:1050px;margin:auto;min-height:100vh}
+header{position:sticky;top:0;z-index:50;background:rgba(9,11,20,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.topbar{height:62px;display:flex;align-items:center;gap:10px;padding:0 14px}
+.logo{font-weight:900;font-size:20px;letter-spacing:.5px;white-space:nowrap}
+.logo span{color:var(--accent)}.logo b{color:var(--gold)}
+.menuBtn,.iconBtn{border:1px solid var(--border);background:var(--panel);color:#fff;border-radius:10px;width:38px;height:38px}
+.menuBtn{order:3;margin-left:auto}
+.searchWrap{display:flex;gap:7px;padding:0 14px 11px}
+.searchWrap input{flex:1;min-width:0;background:#151927;border:1px solid var(--border);color:#fff;border-radius:9px;padding:11px 12px;outline:none}
+.searchWrap input:focus{border-color:var(--accent)}
+.searchBtn{background:var(--gold);border:0;border-radius:9px;padding:0 15px;font-weight:800;color:#17130a}
+.drawer{display:none;border-top:1px solid var(--border);padding:8px 14px 14px;background:#0d101a}
+.drawer.open{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.drawer button{background:var(--panel);border:1px solid var(--border);color:#fff;border-radius:8px;padding:10px;text-align:left}
+main{padding:14px}
+.hero{border:1px solid var(--border);background:linear-gradient(135deg,#11182a,#0c0e17);border-radius:14px;padding:16px;margin-bottom:16px}
+.eyebrow{font-size:11px;color:var(--gold);font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.hero h1{font-size:25px;margin:7px 0}.hero p{color:var(--muted);line-height:1.55;font-size:13px}
+.sectionHead{display:flex;justify-content:space-between;align-items:center;margin:20px 0 10px}
+.sectionHead h2{font-size:18px}.sectionHead button{background:none;border:0;color:var(--accent);font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.card{position:relative;background:var(--panel);border:1px solid var(--border);border-radius:11px;overflow:hidden;min-width:0}
+.poster{height:215px;background:#151a29;position:relative;overflow:hidden}
+.poster img{width:100%;height:100%;object-fit:cover}
+.posterFallback{width:100%;height:100%;display:grid;place-items:center;text-align:center;padding:14px;font-weight:900;font-size:24px;background:linear-gradient(145deg,#17213c,#30205b)}
+.badge{position:absolute;left:7px;top:7px;background:rgba(0,0,0,.7);border:1px solid #444b65;padding:4px 6px;border-radius:5px;font-size:9px}
+.fav{position:absolute;right:7px;top:7px;width:30px;height:30px;border:0;border-radius:50%;background:rgba(0,0,0,.7);color:#fff;font-size:15px}
+.fav.active{color:var(--gold)}
+.cardBody{padding:9px}
+.cardTitle{font-size:13px;font-weight:800;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.meta{font-size:10px;color:var(--muted);margin-top:6px;line-height:1.45}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.tag{font-size:8px;border:1px solid var(--border);background:#0e111c;color:#b9c1d6;padding:4px 6px;border-radius:4px}
+.list{display:grid;gap:9px}
+.listItem{display:flex;gap:10px;background:var(--panel);border:1px solid var(--border);padding:9px;border-radius:10px}
+.thumb{width:90px;height:62px;border-radius:7px;overflow:hidden;flex:none;background:#222}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.listItem h3{font-size:13px;line-height:1.35}.listItem p{font-size:10px;color:var(--muted);margin-top:5px}
+.chipGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.chip{background:linear-gradient(145deg,#171c31,#111522);border:1px solid var(--border);min-height:58px;border-radius:9px;color:#fff;font-weight:700;font-size:12px;display:flex;align-items:center;gap:8px;padding:10px}
+.chip span{color:var(--accent);font-size:14px}
+.pagination{display:flex;justify-content:center;gap:6px;margin:18px 0}
+.pagination button{background:var(--panel);color:#fff;border:1px solid var(--border);padding:8px 11px;border-radius:7px}
+.pagination button.active{background:var(--gold);color:#17130a;border-color:var(--gold)}
+.empty{padding:30px 12px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:10px}
+.detail{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.detailHero{display:grid;grid-template-columns:145px 1fr;gap:15px;padding:15px;background:linear-gradient(145deg,#151b2d,#0e1019)}
+.detailPoster{height:215px;border-radius:9px;overflow:hidden;background:#222}
+.detailPoster img{width:100%;height:100%;object-fit:cover}
+.detail h1{font-size:21px;line-height:1.3;margin:7px 0}
+.detailText{font-size:12px;color:var(--muted);line-height:1.6}
+.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.primary,.secondary{border:0;border-radius:8px;padding:9px 12px;font-weight:800}
+.primary{background:var(--gold);color:#16120a}.secondary{background:#242b42;color:#fff;border:1px solid var(--border)}
+.infoBox{padding:13px;border-top:1px solid var(--border)}
+.infoBox h3{font-size:14px;margin-bottom:9px}.infoRow{font-size:11px;color:var(--muted);line-height:1.8}
+.comments{display:grid;gap:9px}.comment{background:#0d1019;border:1px solid var(--border);padding:10px;border-radius:8px}.comment strong{font-size:11px}.comment p{font-size:11px;color:#c7ccda;margin-top:4px}
+.commentForm{display:flex;gap:6px;margin-top:9px}.commentForm input{flex:1;background:#151927;border:1px solid var(--border);color:#fff;padding:9px;border-radius:7px}
+footer{padding:25px 14px 95px;color:var(--muted);font-size:10px;text-align:center}
+.bottomNav{position:fixed;z-index:60;bottom:0;left:0;right:0;background:rgba(9,11,20,.98);border-top:1px solid var(--border);height:68px;display:flex;justify-content:center}
+.bottomInner{width:min(600px,100%);display:grid;grid-template-columns:repeat(5,1fr)}
+.bottomNav button{background:none;border:0;color:#8f96aa;font-size:9px;display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center}
+.bottomNav button span{font-size:17px}.bottomNav button.active{color:var(--gold)}
+.notice{padding:10px 12px;background:#101629;border:1px solid #26304a;border-radius:8px;font-size:10px;color:#c8cee0;margin-bottom:12px}
+.scheduleDay{margin-bottom:15px}.dayTitle{font-size:13px;color:var(--gold);margin-bottom:7px}
+.scheduleItem{display:flex;justify-content:space-between;gap:8px;padding:9px;background:var(--panel);border:1px solid var(--border);border-radius:8px;margin-bottom:6px;font-size:11px}
+.time{color:var(--accent);white-space:nowrap}
+.toast{position:fixed;z-index:100;left:50%;bottom:84px;transform:translateX(-50%) translateY(20px);opacity:0;background:#fff;color:#111;padding:10px 14px;border-radius:8px;font-size:11px;font-weight:700;transition:.25s;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(min-width:650px){
+ main{padding:20px}.grid{grid-template-columns:repeat(4,1fr)}.poster{height:265px}.chipGrid{grid-template-columns:repeat(4,1fr)}
+ .hero{padding:24px}.hero h1{font-size:32px}.drawer.open{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="topbar">
+    <a class="logo" href="#home" onclick="route('home')"><span>YOUR</span><b>SITE</b></a>
+    <button class="iconBtn" title="Favorites" onclick="route('favorites')">♡</button>
+    <button class="menuBtn" onclick="toggleMenu()">☰ Menu</button>
+  </div>
+  <div class="searchWrap">
+    <input id="searchInput" placeholder="Search anime, movies..." onkeydown="if(event.key==='Enter')doSearch()">
+    <button class="searchBtn" onclick="doSearch()">Search</button>
+  </div>
+  <div id="drawer" class="drawer">
+    <button onclick="route('home')">⌂ Home</button>
+    <button onclick="route('languages')">▣ Languages</button>
+    <button onclick="route('genres')">◈ Genre</button>
+    <button onclick="route('schedule')">▣ Schedule</button>
+    <button onclick="route('favorites')">♡ Favorite</button>
+    <button onclick="route('updates')">⚡ Latest Updates</button>
+    <button onclick="route('contact')">✉ Contact</button>
+    <button onclick="route('guide')">↓ How To Download</button>
+  </div>
+</header>
+
+<main id="app"></main>
+<footer>
+  <div><b>YOUR SITE NAME</b></div>
+  <div style="margin-top:7px">Watch and discover anime, movies and latest updates.</div>
+  <div style="margin-top:12px">Home · Languages · Genre · Schedule · Favorite · Contact</div>
+  <div style="margin-top:12px">© 2026 YOUR SITE NAME. All rights reserved.</div>
+</footer>
+</div>
+
+<nav class="bottomNav">
+ <div class="bottomInner">
+  <button data-route="home" onclick="route('home')"><span>⌂</span>Home</button>
+  <button data-route="languages" onclick="route('languages')"><span>▣</span>Languages</button>
+  <button data-route="genres" onclick="route('genres')"><span>◈</span>Genre</button>
+  <button data-route="schedule" onclick="route('schedule')"><span>▤</span>Schedule</button>
+  <button data-route="favorites" onclick="route('favorites')"><span>♡</span>Favorite</button>
+ </div>
+</nav>
+<div id="toast" class="toast"></div>
+
+<script>
+/* =========================================================
+   EDIT ONLY THIS DATA SECTION TO ADD YOUR OWN CONTENT
+   ========================================================= */
+const SITE_NAME="YOUR SITE NAME";
+const IMG=(seed)=>`https://picsum.photos/seed/${encodeURIComponent(seed)}/500/700`;
+
+const anime=[
+ {id:1,title:"A Wild Last Boss Appeared!",year:2026,type:"TV",lang:"Japanese",genres:["Action","Fantasy","Adventure"],eps:"12",image:IMG("wild-last-boss"),desc:"A mysterious new adventure begins as an unexpected legendary character appears."},
+ {id:2,title:"Black Torch Season 1",year:2026,type:"TV",lang:"Hindi",genres:["Action","Fantasy","Shounen"],eps:"12",image:IMG("black-torch"),desc:"A powerful supernatural story filled with battles, secrets and strange creatures."},
+ {id:3,title:"Doraemon New Nobita And The Castle Of The Undersea Devil",year:2026,type:"Movie",lang:"Hindi",genres:["Adventure","Comedy","Fantasy"],eps:"Movie",image:IMG("doraemon-undersea"),desc:"A new underwater adventure begins with Nobita and his friends."},
+ {id:4,title:"That Time I Got Reincarnated as a Slime Season 4",year:2026,type:"TV",lang:"Tamil",genres:["Fantasy","Action","Isekai"],eps:"24",image:IMG("slime-season4"),desc:"Rimuru and his allies face a new chapter full of political and magical conflicts."},
+ {id:5,title:"Fena: Pirate Princess Season 1",year:2026,type:"TV",lang:"English",genres:["Action","Adventure","Fantasy"],eps:"12",image:IMG("fena-pirate"),desc:"A young woman discovers a mysterious past and begins a dangerous journey."},
+ {id:6,title:"Lego Ninjago: Dragons Rising",year:2026,type:"TV",lang:"English",genres:["Action","Comedy","Fantasy"],eps:"20",image:IMG("ninjago"),desc:"New heroes and dragons join an exciting ninja adventure."},
+ {id:7,title:"One Piece",year:2026,type:"TV",lang:"Hindi",genres:["Action","Adventure","Comedy"],eps:"Ongoing",image:IMG("one-piece"),desc:"The Straw Hat crew continues its journey across the Grand Line."},
+ {id:8,title:"Naruto Shippuden",year:2026,type:"TV",lang:"Hindi",genres:["Action","Shounen","Adventure"],eps:"500",image:IMG("naruto"),desc:"A classic ninja adventure filled with friendship, rivalry and battles."},
+ {id:9,title:"Demon Slayer",year:2026,type:"TV",lang:"Japanese",genres:["Action","Fantasy","Shounen"],eps:"Ongoing",image:IMG("demon-slayer"),desc:"Tanjiro continues his fight against powerful demons."},
+ {id:10,title:"Solo Leveling",year:2026,type:"TV",lang:"Hindi",genres:["Action","Fantasy","Adventure"],eps:"24",image:IMG("solo-leveling"),desc:"A hunter grows stronger through a mysterious system."},
+ {id:11,title:"My Hero Academia",year:2026,type:"TV",lang:"English",genres:["Action","School","Shounen"],eps:"Ongoing",image:IMG("my-hero"),desc:"Young heroes train to protect society in a world of superpowers."},
+ {id:12,title:"Attack on Titan",year:2026,type:"TV",lang:"Japanese",genres:["Action","Drama","Fantasy"],eps:"87",image:IMG("attack-titan"),desc:"Humanity fights for survival behind enormous walls."}
+];
+
+const languages=["Hindi","Bengali","Chinese","English","Hindi Dubbed","Japanese","Kannada","Korean","Malayalam","Tamil","Telugu","Urdu"];
+const genres=["Action","Adventure","Comedy","Drama","Fantasy","Hindi","Japanese","Magic","School","Sci-Fi","Science","Seinen","Series","Shounen","Isekai","Romance"];
+const schedule=[
+ {day:"Today",items:[["07:00 PM","New Anime Episode"],["08:30 PM","Black Torch"],["10:00 PM","Latest Movie"]]},
+ {day:"Tomorrow",items:[["06:30 PM","That Time I Got Reincarnated as a Slime"],["08:00 PM","One Piece"],["09:30 PM","Weekly Anime Update"]]},
+ {day:"Saturday",items:[["07:00 PM","A Wild Last Boss Appeared!"],["09:00 PM","Movie Release"],["10:30 PM","Special Episode"]]}
+];
+
+let favorites=JSON.parse(localStorage.getItem("siteFavorites")||"[]");
+let comments=JSON.parse(localStorage.getItem("siteComments")||"{}");
+let currentPage=1, perPage=8, currentItems=anime;
+
+function saveFav(){localStorage.setItem("siteFavorites",JSON.stringify(favorites))}
+function isFav(id){return favorites.includes(id)}
+function toggleFav(id,e){
+ e?.stopPropagation();
+ favorites=isFav(id)?favorites.filter(x=>x!==id):[...favorites,id];
+ saveFav();toast(isFav(id)?"Added to favorites":"Removed from favorites");
+ render();
+}
+function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1600)}
+function toggleMenu(){document.getElementById("drawer").classList.toggle("open")}
+function closeMenu(){document.getElementById("drawer").classList.remove("open")}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function card(a){
+ return `<article class="card" onclick="detail(${a.id})">
+  <div class="poster"><img src="${a.image}" alt="${escapeHTML(a.title)}" loading="lazy" onerror="this.style.display='none'"><div class="posterFallback">${escapeHTML(a.title)}</div>
+   <span class="badge">${escapeHTML(a.type)} · ${escapeHTML(a.lang)}</span>
+   <button class="fav ${isFav(a.id)?"active":""}" onclick="toggleFav(${a.id},event)">${isFav(a.id)?"♥":"♡"}</button>
+  </div>
+  <div class="cardBody"><div class="cardTitle">${escapeHTML(a.title)}</div>
+   <div class="meta">${a.year} · ${escapeHTML(a.eps)} Episodes</div>
+   <div class="tags">${a.genres.slice(0,3).map(g=>`<span class="tag">${escapeHTML(g)}</span>`).join("")}</div>
+  </div>
+ </article>`
+}
+function grid(items){
+ if(!items.length)return `<div class="empty">No anime found.</div>`;
+ return `<div class="grid">${items.map(card).join("")}</div>`;
+}
+function section(title,body,more=""){
+ return `<div class="sectionHead"><h2>${title}</h2>${more?`<button onclick="${more}">View all ›</button>`:""}</div>${body}`;
+}
+function paginate(items){
+ const pages=Math.max(1,Math.ceil(items.length/perPage)); currentPage=Math.min(currentPage,pages);
+ const slice=items.slice((currentPage-1)*perPage,currentPage*perPage);
+ return grid(slice)+`<div class="pagination">${Array.from({length:pages},(_,i)=>`<button class="${currentPage===i+1?"active":""}" onclick="currentPage=${i+1};render()">${i+1}</button>`).join("")}</div>`;
+}
+function home(){
+ currentItems=anime;currentPage=1;
+ const latest=[...anime].reverse().slice(0,4);
+ return `<div class="hero">
+   <div class="eyebrow">YOUR SITE NAME</div>
+   <h1>Latest updates</h1>
+   <p>Explore the latest posts and find your next anime, movie or series.</p>
+ </div>
+ ${section("Latest updates",grid(latest))}
+ ${section("Popular Anime",grid(anime.slice(0,8)),"route('genres')")}
+ ${section("Languages",`<div class="chipGrid">${languages.slice(0,8).map(x=>`<button class="chip" onclick="filterLanguage('${x}')"><span>▣</span>${x}</button>`).join("")}</div>`)}
+ ${section("Genres",`<div class="chipGrid">${genres.slice(0,8).map(x=>`<button class="chip" onclick="filterGenre('${x}')"><span>◈</span>${x}</button>`).join("")}</div>`)}
+ ${section("Schedule",schedule.slice(0,2).map(day=>`<div class="scheduleDay"><div class="dayTitle">${day.day}</div>${day.items.map(i=>`<div class="scheduleItem"><span>${i[1]}</span><span class="time">${i[0]}</span></div>`).join("")}</div>`).join(""))}
+ <div class="notice">⚡ New episodes and updates can be added by editing the data section in this single HTML file.</div>`;
+}
+function listing(title,items,subtitle=""){
+ currentItems=items;currentPage=1;
+ return `<div class="hero"><div class="eyebrow">${title}</div><h1>${title}</h1><p>${subtitle||"Browse all available titles."}</p></div>${paginate(items)}`;
+}
+function languagesPage(){
+ return `<div class="hero"><div class="eyebrow">Browse</div><h1>Languages</h1><p>Select a language to view available anime.</p></div>
+ <div class="chipGrid">${languages.map(x=>`<button class="chip" onclick="filterLanguage('${x}')"><span>▣</span>${x}</button>`).join("")}</div>`;
+}
+function genresPage(){
+ return `<div class="hero"><div class="eyebrow">Browse</div><h1>Genre</h1><p>Find anime by category.</p></div>
+ <div class="chipGrid">${genres.map(x=>`<button class="chip" onclick="filterGenre('${x}')"><span>◈</span>${x}</button>`).join("")}</div>`;
+}
+function schedulePage(){
+ return `<div class="hero"><div class="eyebrow">Release calendar</div><h1>Schedule</h1><p>Upcoming episodes and releases.</p></div>
+ ${schedule.map(d=>`<div class="scheduleDay"><div class="dayTitle">${d.day}</div>${d.items.map(i=>`<div class="scheduleItem"><b>${i[1]}</b><span class="time">${i[0]}</span></div>`).join("")}</div>`).join("")}`;
+}
+function favoritesPage(){
+ const items=anime.filter(a=>favorites.includes(a.id));
+ return `<div class="hero"><div class="eyebrow">Saved</div><h1>Favorites</h1><p>Your saved anime are stored on this device.</p></div>${grid(items)}`;
+}
+function updatesPage(){
+ const items=[...anime].reverse();
+ return `<div class="hero"><div class="eyebrow">Latest</div><h1>Latest Updates</h1><p>Recently added anime and posts.</p></div><div class="list">${items.map(a=>`<div class="listItem" onclick="detail(${a.id})"><div class="thumb"><img src="${a.image}" alt=""></div><div><h3>${escapeHTML(a.title)}</h3><p>${a.year} · ${a.lang} · ${a.type}</p></div></div>`).join("")}</div>`;
+}
+function detail(id){
+ location.hash="#anime/"+id;render();
+}
+function detailPage(id){
+ const a=anime.find(x=>x.id==id);if(!a)return `<div class="empty">Anime not found.</div>`;
+ const cs=comments[id]||[];
+ return `<div class="detail">
+  <div class="detailHero"><div class="detailPoster"><img src="${a.image}" alt="${escapeHTML(a.title)}"></div>
+   <div><div class="eyebrow">${a.type} · ${a.lang}</div><h1>${escapeHTML(a.title)}</h1><p class="detailText">${escapeHTML(a.desc)}</p>
+   <div class="actions"><button class="primary" onclick="watch(${a.id})">▶ Watch Now</button><button class="secondary" onclick="toggleFav(${a.id},event)">${isFav(a.id)?"♥ Saved":"♡ Favorite"}</button></div></div>
+  </div>
+  <div class="infoBox"><h3>Details</h3><div class="infoRow">Genre: ${a.genres.join(", ")}<br>Year: ${a.year}<br>Language: ${a.lang}<br>Episodes: ${a.eps}<br>Status: Available</div></div>
+  <div class="infoBox"><h3>Synopsis</h3><div class="detailText">${escapeHTML(a.desc)} This section can contain your full synopsis, episode information and download links.</div></div>
+  <div class="infoBox"><h3>Comments</h3><d
+  class="comments">${cs.length?cs.map(c=>`<div class="comment"><strong>${escapeHTML(c.name)}</strong><p>${escapeHTML(c.text)}</p></div>`).join(""):`<div class="empty">No comments yet.</div>`}</div>
+   <div class="commentForm"><input id="commentInput" placeholder="Write a comment..."><button class="secondary" onclick="addComment(${a.id})">Post</button></div>
+  </div>
+ </div>
+ <div style="margin-top:12px"><button class="secondary" onclick="route('home')">← Back to Home</button></div>`;
+}
+function addComment(id){
+ const input=document.getElementById("commentInput");if(!input?.value.trim())return;
+ comments[id]=comments[id]||[];comments[id].push({name:"Guest",text:input.value.trim()});
+ localStorage.setItem("siteComments",JSON.stringify(comments));render();toast("Comment posted");
+}
+function watch(id){toast("Demo player: connect your video/episode link here.");}
+function guide(){
+ return `<div class="hero"><div class="eyebrow">Help</div><h1>How To Download</h1><p>Guide for using your own legal video/episode links.</p></div>
+ <div class="notice"><b>Step 1:</b> Open an anime and choose Watch Now.</div>
+ <div class="notice"><b>Step 2:</b> Connect your own player or download page in the watch function.</div>
+ <div class="notice"><b>Step 3:</b> Keep your content and links compliant with applicable copyright rules.</div>`;
+}
+function contact(){
+ return `<div class="hero"><div class="eyebrow">Contact</div><h1>Contact</h1><p>Use this section for your email, social links or support information.</p></div>
+ <div class="infoBox"><h3>Contact details</h3><div class="infoRow">Email: your@email.com<br>Telegram: @yourchannel<br>YouTube: Your Channel</div></div>`;
+}
+function filterLanguage(lang){route("search");document.getElementById("searchInput").value=lang;currentItems=anime.filter(a=>a.lang.toLowerCase()===lang.toLowerCase());currentPage=1;renderSearchResults(lang,currentItems)}
+function filterGenre(g){route("search");document.getElementById("searchInput").value=g;currentItems=anime.filter(a=>a.genres.some(x=>x.toLowerCase()===g.toLowerCase()));currentPage=1;renderSearchResults(g,currentItems)}
+function doSearch(){
+ const q=document.getElementById("searchInput").value.trim();route("search");
+ if(!q)return renderSearchResults("All Anime",anime);
+ const items=anime.filter(a=>(a.title+" "+a.lang+" "+a.type+" "+a.genres.join(" ")).toLowerCase().includes(q.toLowerCase()));
+ renderSearchResults("Search results",items);
+}
+function renderSearchResults(title,items){
+ currentItems=items;
+ document.getElementById("app").innerHTML=`<div class="hero"><div class="eyebrow">Search</div><h1>${escapeHTML(title)}</h1><p>${items.length} result(s) found.</p></div>${paginate(items)}`;
+ window.scrollTo({top:0,behavior:"smooth"});closeMenu();setActive("search");
+}
+function setActive(name){
+ document.querySelectorAll(".bottomNav button").forEach(b=>b.classList.toggle("active",b.dataset.route===name));
+}
+function route(name){
+ if(name==="home")location.hash="#home";
+ else location.hash="#"+name;
+ render();
+}
+function render(){
+ const hash=location.hash.replace("#","")||"home", parts=hash.split("/");
+ let page=parts[0], html="";
+ if(page==="anime")html=detailPage(parts[1]);
+ else if(page==="languages")html=languagesPage();
+ else if(page==="genres")html=genresPage();
+ else if(page==="schedule")html=schedulePage();
+ else if(page==="favorites")html=favoritesPage();
+ else if(page==="updates")html=updatesPage();
+ else if(page==="guide")html=guide();
+ else if(page==="contact")html=contact();
+ else if(page==="search"){const q=document.getElementById("searchInput").value.trim();const items=q?anime.filter(a=>(a.title+" "+a.lang+" "+a.type+" "+a.genres.join(" ")).toLowerCase().includes(q.toLowerCase())):anime;html=`<div class="hero"><div class="eyebrow">Search</div><h1>Search</h1><p>Search anime, movies and series.</p></div>${paginate(items)}`}
+ else {page="home";html=home()}
+ document.getElementById("app").innerHTML=html;
+ setActive(page);
+ closeMenu();window.scrollTo({top:0,behavior:"smooth"});
+}
+window.addEventListener("hashchange",render);
+document.addEventListener("DOMContentLoaded",()=>{document.title=SITE_NAME+" — Anime Streaming";render()});
+</script>
+</body>
+</html>
