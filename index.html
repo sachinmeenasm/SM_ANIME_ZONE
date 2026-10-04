@@ -39,15 +39,13 @@ main{padding:14px}
 .sectionHead h2{font-size:18px}.sectionHead button{background:none;border:0;color:var(--accent);font-size:12px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .card{position:relative;background:var(--panel);border:1px solid var(--border);border-radius:11px;overflow:hidden;min-width:0}
-.poster{aspect-ratio:2/3;height:auto;background:#151a29;position:relative;overflow:hidden}
-.poster img{width:100%;height:100%;object-fit:cover;object-position:center}
-.card{cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
-.card:hover{transform:translateY(-3px);border-color:#3b4664;box-shadow:0 10px 25px rgba(0,0,0,.25)}
+.poster{height:250px;background:#151a29;position:relative;overflow:hidden}
+.poster img{width:100%;height:100%;object-fit:cover}
 .posterFallback{width:100%;height:100%;display:grid;place-items:center;text-align:center;padding:14px;font-weight:900;font-size:24px;background:linear-gradient(145deg,#17213c,#30205b)}
 .badge{position:absolute;left:7px;top:7px;background:rgba(0,0,0,.7);border:1px solid #444b65;padding:4px 6px;border-radius:5px;font-size:9px}
 .fav{position:absolute;right:7px;top:7px;width:30px;height:30px;border:0;border-radius:50%;background:rgba(0,0,0,.7);color:#fff;font-size:15px}
 .fav.active{color:var(--gold)}
-.cardBody{padding:9px;min-height:78px}
+.cardBody{padding:9px}
 .cardTitle{font-size:13px;font-weight:800;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .meta{font-size:10px;color:var(--muted);margin-top:6px;line-height:1.45}
 .tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
@@ -64,28 +62,105 @@ main{padding:14px}
 .pagination button{background:var(--panel);color:#fff;border:1px solid var(--border);padding:8px 11px;border-radius:7px}
 .pagination button.active{background:var(--gold);color:#17130a;border-color:var(--gold)}
 .empty{padding:30px 12px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:10px}
-.detail{background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-.detailHero{position:relative;display:grid;grid-template-columns:190px 1fr;gap:20px;padding:20px;background:linear-gradient(145deg,#151b2d,#0e1019)}
-.detailPoster{height:285px;border-radius:10px;overflow:hidden;background:#222;box-shadow:0 10px 28px rgba(0,0,0,.35)}
-.detailPoster img{width:100%;height:100%;object-fit:cover;object-position:center}
-.detailTopInfo{min-width:0}
-.detailBadges{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
-.detailBadge{font-size:10px;padding:5px 8px;border-radius:5px;background:#20283d;border:1px solid #303a55;color:#cbd3e8}
-.episodeBox{padding:14px;border-top:1px solid var(--border)}
-.episodeBox h3{font-size:15px;margin-bottom:10px}
-.episodeGrid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
-.episodeBtn{border:1px solid var(--border);background:#171d2d;color:#fff;border-radius:7px;padding:9px 4px;font-size:11px;font-weight:700}
-.episodeBtn:hover,.episodeBtn.active{background:var(--gold);color:#17130a;border-color:var(--gold)}
-.playerBox{margin-top:12px;padding:12px;background:#090b12;border:1px solid var(--border);border-radius:10px}
-.playerBox video{width:100%;max-height:430px;border-radius:8px;background:#000}
-.relatedGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.detail h1{font-size:21px;line-height:1.3;margin:7px 0}
-.detailText{font-size:12px;color:var(--muted);line-height:1.6}
-.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
-.primary,.secondary{border:0;border-radius:8px;padding:9px 12px;font-weight:800}
+.detail{background:transparent;border:0;border-radius:0;overflow:visible}
+.detailTop{padding:0 2px 18px}
+.detailTop h1{font-size:28px;line-height:1.35;margin:2px 0 9px;font-weight:800}
+.detailTop .detailLead{font-size:15px;color:#e9e9ee;line-height:1.55}
+.detailDate{font-size:12px;color:var(--gold);margin-top:12px}
+.detailDivider{height:1px;background:var(--border);margin:0 0 20px}
+.detailPosterWide{width:100%;aspect-ratio:16/9;border-radius:13px;overflow:hidden;background:#222;margin-bottom:18px}
+.detailPosterWide img{width:100%;height:100%;object-fit:cover}
+.detailInfoCard{background:#1a1a1a;border:1px solid #303030;border-radius:15px;padding:24px 26px;margin-bottom:18px}
+.detailInfoLine{font-size:16px;color:#f5f5f5;line-height:1.8;margin:2px 0}
+.detailInfoLine b{color:#e4c27d}
+.detailSynopsis{background:#1a1a1a;border:1px solid #303030;border-radius:15px;padding:24px 26px;margin-bottom:18px}
+.detailSynopsis h3{color:#e4c27d;font-size:17px;margin-bottom:10px}
+.detailText{font-size:15px;color:#f0f0f0;line-height:1.75}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.primary,.secondary{border:0;border-radius:9px;padding:10px 13px;font-weight:800}
 .primary{background:var(--gold);color:#16120a}.secondary{background:#242b42;color:#fff;border:1px solid var(--border)}
-.infoBox{padding:13px;border-top:1px solid var(--border)}
-.infoBox h3{font-size:14px;margin-bottom:9px}.infoRow{font-size:11px;color:var(--muted);line-height:1.8}
+@media(max-width:650px){
+  .detailTop h1{font-size:27px}
+  .detailTop .detailLead{font-size:15px}
+  .detailPosterWide{aspect-ratio:16/9}
+  .detailInfoCard,.detailSynopsis{padding:23px 26px}
+  .detailInfoLine{font-size:16px;line-height:1.85}
+}
+
+.episodeSection{
+  margin-top:0;
+  padding:15px;
+  border-top:1px solid var(--border);
+}
+.episodeSection h3{
+  font-size:16px;
+  margin-bottom:10px;
+}
+.episodeCard{
+  background:#191919;
+  border:1px solid #2f2f2f;
+  border-radius:15px;
+  padding:22px 24px;
+  margin-bottom:16px;
+}
+.episodeTitle{
+  color:#e4c27d;
+  font-size:20px;
+  font-weight:900;
+  margin-bottom:14px;
+}
+.episodeLang{
+  display:inline-block;
+  color:#e4c27d;
+  background:#29261f;
+  border:1px solid #454034;
+  border-radius:7px;
+  padding:8px 12px;
+  font-size:14px;
+  font-weight:800;
+  margin-bottom:14px;
+}
+.episodeLinks{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.episodeBtn{
+  min-height:64px;
+  border:1px solid #404040;
+  border-radius:11px;
+  background:#2b2b2b;
+  color:#fff;
+  font-weight:800;
+  font-size:15px;
+  padding:10px;
+  transition:.2s;
+}
+.episodeBtn:hover{
+  border-color:#e4c27d;
+  transform:translateY(-1px);
+}
+.episodeBtn.watch{
+  background:#e1bb73;
+  border-color:#e1bb73;
+  color:#17120a;
+}
+.episodeDivider{
+  height:1px;
+  background:#343434;
+  margin:18px 0;
+}
+@media(max-width:430px){
+  .episodeCard{padding:20px 24px}
+  .episodeTitle{font-size:19px}
+  .episodeBtn{min-height:64px;font-size:14px}
+}
+@media(max-width:360px){
+  .episodeCard{padding:18px}
+  .episodeLinks{gap:8px}
+  .episodeBtn{min-height:58px;font-size:13px}
+}
+
 .comments{display:grid;gap:9px}.comment{background:#0d1019;border:1px solid var(--border);padding:10px;border-radius:8px}.comment strong{font-size:11px}.comment p{font-size:11px;color:#c7ccda;margin-top:4px}
 .commentForm{display:flex;gap:6px;margin-top:9px}.commentForm input{flex:1;background:#151927;border:1px solid var(--border);color:#fff;padding:9px;border-radius:7px}
 footer{padding:25px 14px 95px;color:var(--muted);font-size:10px;text-align:center}
@@ -100,15 +175,8 @@ footer{padding:25px 14px 95px;color:var(--muted);font-size:10px;text-align:cente
 .toast{position:fixed;z-index:100;left:50%;bottom:84px;transform:translateX(-50%) translateY(20px);opacity:0;background:#fff;color:#111;padding:10px 14px;border-radius:8px;font-size:11px;font-weight:700;transition:.25s;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(min-width:650px){
- main{padding:20px}.grid{grid-template-columns:repeat(4,1fr)}.poster{height:auto}.chipGrid{grid-template-columns:repeat(4,1fr)}
+ main{padding:20px}.grid{grid-template-columns:repeat(4,1fr)}.poster{height:285px}.chipGrid{grid-template-columns:repeat(4,1fr)}
  .hero{padding:24px}.hero h1{font-size:32px}.drawer.open{grid-template-columns:repeat(4,1fr)}
-}
-@media(max-width:649px){
- .detailHero{grid-template-columns:120px 1fr;gap:12px;padding:13px}
- .detailPoster{height:180px}
- .detail h1{font-size:18px}
- .episodeGrid{grid-template-columns:repeat(4,1fr)}
- .relatedGrid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -164,18 +232,18 @@ const SITE_NAME="SM ANIME ZONE ";
 const IMG=(seed)=>`https://picsum.photos/seed/${encodeURIComponent(seed)}/500/700`;
 
 const anime=[
- {id:1,title:"A Wild Last Boss Appeared!",year:2026,type:"TV",lang:"Japanese",genres:["Action","Fantasy","Adventure"],eps:"12",episodeUrls:[],image:IMG("wild-last-boss"),desc:"A mysterious new adventure begins as an unexpected legendary character appears."},
- {id:2,title:"Black Torch Season 1",year:2026,type:"TV",lang:"Hindi",genres:["Action","Fantasy","Shounen"],eps:"12",episodeUrls:[],image:IMG("black-torch"),desc:"A powerful supernatural story filled with battles, secrets and strange creatures."},
- {id:3,title:"Doraemon New Nobita And The Castle Of The Undersea Devil",year:2026,type:"Movie",lang:"Hindi",genres:["Adventure","Comedy","Fantasy"],eps:"Movie",episodeUrls:[],image:IMG("doraemon-undersea"),desc:"A new underwater adventure begins with Nobita and his friends."},
- {id:4,title:"That Time I Got Reincarnated as a Slime Season 4",year:2026,type:"TV",lang:"Tamil",genres:["Fantasy","Action","Isekai"],eps:"24",episodeUrls:[],image:IMG("slime-season4"),desc:"Rimuru and his allies face a new chapter full of political and magical conflicts."},
- {id:5,title:"Fena: Pirate Princess Season 1",year:2026,type:"TV",lang:"English",genres:["Action","Adventure","Fantasy"],eps:"12",episodeUrls:[],image:IMG("fena-pirate"),desc:"A young woman discovers a mysterious past and begins a dangerous journey."},
- {id:6,title:"Lego Ninjago: Dragons Rising",year:2026,type:"TV",lang:"English",genres:["Action","Comedy","Fantasy"],eps:"20",episodeUrls:[],image:IMG("ninjago"),desc:"New heroes and dragons join an exciting ninja adventure."},
- {id:7,title:"One Piece",year:2026,type:"TV",lang:"Hindi",genres:["Action","Adventure","Comedy"],eps:"Ongoing",episodeUrls:[],image:IMG("one-piece"),desc:"The Straw Hat crew continues its journey across the Grand Line."},
- {id:8,title:"Naruto Shippuden",year:2026,type:"TV",lang:"Hindi",genres:["Action","Shounen","Adventure"],eps:"500",episodeUrls:[],image:IMG("naruto"),desc:"A classic ninja adventure filled with friendship, rivalry and battles."},
- {id:9,title:"Demon Slayer",year:2026,type:"TV",lang:"Japanese",genres:["Action","Fantasy","Shounen"],eps:"Ongoing",episodeUrls:[],image:IMG("demon-slayer"),desc:"Tanjiro continues his fight against powerful demons."},
- {id:10,title:"Solo Leveling",year:2026,type:"TV",lang:"Hindi",genres:["Action","Fantasy","Adventure"],eps:"24",episodeUrls:[],image:IMG("solo-leveling"),desc:"A hunter grows stronger through a mysterious system."},
- {id:11,title:"My Hero Academia",year:2026,type:"TV",lang:"English",genres:["Action","School","Shounen"],eps:"Ongoing",episodeUrls:[],image:IMG("my-hero"),desc:"Young heroes train to protect society in a world of superpowers."},
- {id:12,title:"Attack on Titan",year:2026,type:"TV",lang:"Japanese",genres:["Action","Drama","Fantasy"],eps:"87",episodeUrls:[],image:IMG("attack-titan"),desc:"Humanity fights for survival behind enormous walls."}
+ {id:1,title:"A Wild Last Boss Appeared!",year:2026,type:"TV",lang:"Japanese",genres:["Action","Fantasy","Adventure"],eps:"12",image:IMG("wild-last-boss"),desc:"A mysterious new adventure begins as an unexpected legendary character appears."},
+ {id:2,title:"Black Torch Season 1",year:2026,type:"TV",lang:"Hindi",languageFull:"Hindi-English-Japanese",subtitle:"English",quality:"1080p HEVC | 720p HEVC | 480p AVC",status:"Available",genres:["Action","Supernatural","Fantasy","Shounen"],eps:"12",image:IMG("black-torch"),desc:"[Hindi-Eng-Jpn] 480p, 720p & 1080p HD WEB-DL | 10bit HEVC ESub",synopsis:"Jiro Azuma, a young shinobi who can communicate with animals, becomes involved in a dangerous battle between humans and mononoke after merging with the powerful cat-like spirit Rago."},
+ {id:3,title:"Doraemon New Nobita And The Castle Of The Undersea Devil",year:2026,type:"Movie",lang:"Hindi",genres:["Adventure","Comedy","Fantasy"],eps:"Movie",image:IMG("doraemon-undersea"),desc:"A new underwater adventure begins with Nobita and his friends."},
+ {id:4,title:"That Time I Got Reincarnated as a Slime Season 4",year:2026,type:"TV",lang:"Tamil",genres:["Fantasy","Action","Isekai"],eps:"24",image:IMG("slime-season4"),desc:"Rimuru and his allies face a new chapter full of political and magical conflicts."},
+ {id:5,title:"Fena: Pirate Princess Season 1",year:2026,type:"TV",lang:"English",genres:["Action","Adventure","Fantasy"],eps:"12",image:IMG("fena-pirate"),desc:"A young woman discovers a mysterious past and begins a dangerous journey."},
+ {id:6,title:"Lego Ninjago: Dragons Rising",year:2026,type:"TV",lang:"English",genres:["Action","Comedy","Fantasy"],eps:"20",image:IMG("ninjago"),desc:"New heroes and dragons join an exciting ninja adventure."},
+ {id:7,title:"One Piece",year:2026,type:"TV",lang:"Hindi",genres:["Action","Adventure","Comedy"],eps:"Ongoing",image:IMG("one-piece"),desc:"The Straw Hat crew continues its journey across the Grand Line."},
+ {id:8,title:"Naruto Shippuden",year:2026,type:"TV",lang:"Hindi",genres:["Action","Shounen","Adventure"],eps:"500",image:IMG("naruto"),desc:"A classic ninja adventure filled with friendship, rivalry and battles."},
+ {id:9,title:"Demon Slayer",year:2026,type:"TV",lang:"Japanese",genres:["Action","Fantasy","Shounen"],eps:"Ongoing",image:IMG("demon-slayer"),desc:"Tanjiro continues his fight against powerful demons."},
+ {id:10,title:"Solo Leveling",year:2026,type:"TV",lang:"Hindi",genres:["Action","Fantasy","Adventure"],eps:"24",image:IMG("solo-leveling"),desc:"A hunter grows stronger through a mysterious system."},
+ {id:11,title:"My Hero Academia",year:2026,type:"TV",lang:"English",genres:["Action","School","Shounen"],eps:"Ongoing",image:IMG("my-hero"),desc:"Young heroes train to protect society in a world of superpowers."},
+ {id:12,title:"Attack on Titan",year:2026,type:"TV",lang:"Japanese",genres:["Action","Drama","Fantasy"],eps:"87",image:IMG("attack-titan"),desc:"Humanity fights for survival behind enormous walls."}
 ];
 
 const languages=["Hindi","Bengali","Chinese","English","Hindi Dubbed","Japanese","Kannada","Korean","Malayalam","Tamil","Telugu","Urdu"];
@@ -209,7 +277,7 @@ function card(a){
    <button class="fav ${isFav(a.id)?"active":""}" onclick="toggleFav(${a.id},event)">${isFav(a.id)?"♥":"♡"}</button>
   </div>
   <div class="cardBody"><div class="cardTitle">${escapeHTML(a.title)}</div>
-   <div class="meta">${a.year} · ${escapeHTML(a.eps)} ${a.eps==="Movie"?"":"Episodes"}</div>
+   <div class="meta">${a.year} · ${escapeHTML(a.eps)} Episodes</div>
    <div class="tags">${a.genres.slice(0,3).map(g=>`<span class="tag">${escapeHTML(g)}</span>`).join("")}</div>
   </div>
  </article>`
@@ -268,77 +336,133 @@ function updatesPage(){
 function detail(id){
  location.hash="#anime/"+id;render();
 }
+
 function episodeCount(a){
- if(a.eps==="Movie") return 1;
- const n=parseInt(a.eps,10);
- return Number.isFinite(n)?Math.min(n,100):24;
-}
-function episodeButtons(a){
- const count=episodeCount(a);
- return Array.from({length:count},(_,i)=>{
-   const ep=i+1;
-   return `<button class="episodeBtn" onclick="watchEpisode(${a.id},${ep})">EP ${ep}</button>`;
- }).join("");
-}
-function detailPage(id){
- const a=anime.find(x=>x.id==id);if(!a)return `<div class="empty">Anime not found.</div>`;
- const cs=comments[id]||[];
- const related=anime.filter(x=>x.id!==a.id && (x.genres.some(g=>a.genres.includes(g))||x.lang===a.lang)).slice(0,4);
- return `<div class="detail">
-  <div class="detailHero">
-   <div class="detailPoster"><img src="${a.image}" alt="${escapeHTML(a.title)}"></div>
-   <div class="detailTopInfo">
-    <div class="eyebrow">${escapeHTML(a.type)} · ${escapeHTML(a.lang)}</div>
-    <h1>${escapeHTML(a.title)}</h1>
-    <div class="detailBadges">
-      <span class="detailBadge">${a.year}</span>
-      <span class="detailBadge">${escapeHTML(a.eps)} ${a.eps==="Movie"?"":"Episodes"}</span>
-      <span class="detailBadge">${escapeHTML(a.lang)}</span>
-    </div>
-    <p class="detailText">${escapeHTML(a.desc)}</p>
-    <div class="actions">
-      <button class="primary" onclick="watchEpisode(${a.id},1)">▶ Watch Now</button>
-      <button class="secondary" onclick="toggleFav(${a.id},event)">${isFav(a.id)?"♥ Saved":"♡ Favorite"}</button>
-    </div>
-   </div>
-  </div>
-  <div class="episodeBox">
-   <h3>Episodes</h3>
-   <div class="episodeGrid">${episodeButtons(a)}</div>
-   <div id="playerArea"></div>
-  </div>
-  <div class="infoBox"><h3>Details</h3>
-   <div class="infoRow">Genre: ${a.genres.map(escapeHTML).join(", ")}<br>Year: ${a.year}<br>Language: ${escapeHTML(a.lang)}<br>Type: ${escapeHTML(a.type)}<br>Episodes: ${escapeHTML(a.eps)}<br>Status: Available</div>
-  </div>
-  <div class="infoBox"><h3>Synopsis</h3><div class="detailText">${escapeHTML(a.desc)}</div></div>
-  <div class="infoBox"><h3>Comments</h3>
-   <div class="comments">${cs.length?cs.map(c=>`<div class="comment"><strong>${escapeHTML(c.name)}</strong><p>${escapeHTML(c.text)}</p></div>`).join(""):`<div class="empty">No comments yet.</div>`}</div>
-   <div class="commentForm"><input id="commentInput" placeholder="Write a comment..."><button class="secondary" onclick="addComment(${a.id})">Post</button></div>
-  </div>
- </div>
- ${related.length?`<div style="margin-top:18px">${section("You may also like",`<div class="relatedGrid">${related.map(card).join("")}</div>`)}</div>`:""}
- <div style="margin-top:12px"><button class="secondary" onclick="route('home')">← Back to Home</button></div>`;
+  const n=parseInt(a.eps,10);
+  return Number.isFinite(n) && n>0 ? n : 0;
 }
 
+function episodeData(a, number){
+  const custom=(a.episodes||[]).find(e=>Number(e.number)===number);
+  return custom || {
+    number:number,
+    language:a.lang || "Hindi-Eng-Jpn",
+    watch:"",
+    links:{
+      "480p x264":"",
+      "720p x264":"",
+      "720p x265":"",
+      "1080p x265":"",
+      "1080p HQ":""
+    }
+  };
+}
+
+function episodeButton(id, number, label, url, isWatch=false){
+  const safeUrl=String(url||"").replace(/'/g,"&#039;");
+  return `<button class="episodeBtn ${isWatch?"watch":""}" onclick="openEpisode(${id},${number},'${safeUrl}')">${escapeHTML(label)}</button>`;
+}
+
+function episodeList(a){
+  const count=episodeCount(a);
+  if(!count){
+    return `<div class="episodeSection">
+      <h3>Episodes</h3>
+      <div class="empty">Episode links can be added for this title from the admin/data section.</div>
+    </div>`;
+  }
+
+  let out=`<div class="episodeSection"><h3>Episodes</h3>`;
+  for(let i=1;i<=count;i++){
+    const e=episodeData(a,i);
+    out+=`
+      <div class="episodeCard">
+        <div class="episodeTitle">Episode ${i}</div>
+        <div class="episodeLang">${escapeHTML(e.language||a.lang||"Hindi-Eng-Jpn")}</div>
+        <div class="episodeLinks">
+          ${episodeButton(a.id,i,"Watch Online",e.watch,true)}
+          ${episodeButton(a.id,i,"480p x264",e.links?.["480p x264"])}
+          ${episodeButton(a.id,i,"720p x264",e.links?.["720p x264"])}
+          ${episodeButton(a.id,i,"720p x265",e.links?.["720p x265"])}
+          ${episodeButton(a.id,i,"1080p x265",e.links?.["1080p x265"])}
+          ${episodeButton(a.id,i,"1080p HQ",e.links?.["1080p HQ"])}
+        </div>
+      </div>
+      ${i<count?'<div class="episodeDivider"></div>':''}
+    `;
+  }
+  out+=`</div>`;
+  return out;
+}
+
+function openEpisode(id, number, url){
+  if(url && url!=="#" && url.trim()){
+    window.open(url,"_blank","noopener,noreferrer");
+    return;
+  }
+  toast("Episode "+number+" का link अभी add नहीं किया गया है");
+}
+
+function detailPage(id){
+  const a=anime.find(x=>x.id==id);
+  if(!a)return `<div class="empty">Anime not found.</div>`;
+  const cs=comments[id]||[];
+
+  const lead = `${a.title} [${a.lang}] ${a.type} • ${a.year}`;
+  const status = a.status || "Available";
+  const subtitle = a.subtitle || "English";
+  const quality = a.quality || "1080p HEVC | 720p HEVC | 480p AVC";
+
+  return `<div class="detail">
+    <div class="detailTop">
+      <div class="eyebrow">${escapeHTML(a.type)} · ${escapeHTML(a.lang)}</div>
+      <h1>${escapeHTML(lead)}</h1>
+      <p class="detailLead">${escapeHTML(a.desc)}</p>
+      <div class="detailDate">${String(a.id).padStart(3,"0")} · ${escapeHTML(String(a.year))}</div>
+    </div>
+
+    <div class="detailDivider"></div>
+
+    <div class="detailPosterWide">
+      <img src="${a.image}" alt="${escapeHTML(a.title)}">
+    </div>
+
+    <div class="detailInfoCard">
+      <div class="detailInfoLine"><b>Genre:</b> ${escapeHTML(a.genres.join(", "))}</div>
+      <div class="detailInfoLine"><b>Language:</b> ${escapeHTML(a.languageFull || a.lang)}</div>
+      <div class="detailInfoLine"><b>Subtitle:</b> ${escapeHTML(subtitle)}</div>
+      <div class="detailInfoLine"><b>Episodes:</b> ${escapeHTML(String(a.eps))}</div>
+      <div class="detailInfoLine"><b>Quality:</b> ${escapeHTML(quality)}</div>
+      <div class="detailInfoLine"><b>Status:</b> ${escapeHTML(status)}</div>
+
+      <div class="actions">
+        <button class="primary" onclick="watch(${a.id})">▶ Watch Now</button>
+        <button class="secondary" onclick="toggleFav(${a.id},event)">${isFav(a.id)?"♥ Saved":"♡ Favorite"}</button>
+      </div>
+    </div>
+
+    <div class="detailSynopsis">
+      <h3>Synopsis:</h3>
+      <div class="detailText">${escapeHTML(a.synopsis || a.desc)}</div>
+    </div>
+
+    ${episodeList(a)}
+
+    <div class="infoBox">
+      <h3>Comments</h3>
+      <div class="comments">${cs.length?cs.map(c=>`<div class="comment"><strong>${escapeHTML(c.name)}</strong><p>${escapeHTML(c.text)}</p></div>`).join(""):`<div class="empty">No comments yet.</div>`}</div>
+      <div class="commentForm"><input id="commentInput" placeholder="Write a comment..."><button class="secondary" onclick="addComment(${a.id})">Post</button></div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px"><button class="secondary" onclick="route('home')">← Back to Home</button></div>`;
+}
 function addComment(id){
  const input=document.getElementById("commentInput");if(!input?.value.trim())return;
  comments[id]=comments[id]||[];comments[id].push({name:"Guest",text:input.value.trim()});
  localStorage.setItem("siteComments",JSON.stringify(comments));render();toast("Comment posted");
 }
-function watchEpisode(id,ep){
- const a=anime.find(x=>x.id==id); if(!a)return;
- const url=(a.episodeUrls&&a.episodeUrls[ep-1])||"";
- const area=document.getElementById("playerArea");
- if(!area)return;
- if(url){
-   area.innerHTML=`<div class="playerBox"><div class="detailText" style="margin-bottom:8px">Playing Episode ${ep}</div><video controls autoplay src="${escapeHTML(url)}"></video></div>`;
- }else{
-   area.innerHTML=`<div class="playerBox"><b>Episode ${ep}</b><div class="detailText" style="margin-top:5px">इस episode का video URL अभी set नहीं है। बाद में Admin Panel/Supabase से URL जोड़ सकते हैं।</div></div>`;
- }
- area.scrollIntoView({behavior:"smooth",block:"nearest"});
- document.querySelectorAll(".episodeBtn").forEach((b,i)=>b.classList.toggle("active",i===ep-1));
-}
-function watch(id){watchEpisode(id,1);}
+function watch(id){toast("Demo player: connect your video/episode link here.");}
 function guide(){
  return `<div class="hero"><div class="eyebrow">Help</div><h1>How To Download</h1><p>Guide for using your own legal video/episode links.</p></div>
  <div class="notice"><b>Step 1:</b> Open an anime and choose Watch Now.</div>
