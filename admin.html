@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SMANIME Admin Panel</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#080a10;color:#f5f5f7;font-family:Arial,sans-serif}
+:root{--p:#151925;--p2:#1c2130;--line:#2a3040;--gold:#e7bb73;--pink:#ff4b87;--muted:#9da5b8;--red:#ff6173;--green:#55d49c}
+.top{position:sticky;top:0;z-index:5;background:#0b0d14ee;border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+.topin{max-width:1200px;margin:auto;padding:13px 15px;display:flex;align-items:center;gap:10px}.logo{font-size:20px;font-weight:900;flex:1}.logo span{color:var(--pink)}.logo b{color:var(--gold)}
+button,input,textarea,select{font:inherit}.btn{background:var(--p2);border:1px solid var(--line);color:#fff;border-radius:9px;padding:9px 12px;cursor:pointer;font-weight:700}.gold{background:var(--gold);color:#15110a;border-color:var(--gold)}.red{background:#32151b;color:#ff9aa6}.green{background:#102b22;color:#8ce6be}
+.layout{max-width:1200px;margin:auto;padding:15px;display:grid;grid-template-columns:220px 1fr;gap:15px}.side{background:var(--p);border:1px solid var(--line);border-radius:13px;padding:9px;height:max-content;position:sticky;top:70px}.side button{display:block;width:100%;background:transparent;border:0;color:#d8ddea;text-align:left;padding:12px;border-radius:8px;cursor:pointer}.side button.active,.side button:hover{background:var(--p2);color:var(--gold)}
+h1{font-size:23px;margin:0 0 5px}.muted{color:var(--muted);font-size:12px;line-height:1.5}.titlebar{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:13px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.stat,.panel{background:var(--p);border:1px solid var(--line);border-radius:13px;padding:13px}.stat b{font-size:24px}.stat span{display:block;color:var(--muted);font-size:10px;margin-top:4px}.panel{margin-top:12px}.panel h2{font-size:16px;margin:0 0 11px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:5px}.full{grid-column:1/-1}.field label{font-size:10px;color:var(--muted);font-weight:bold}.field input,.field textarea,.field select{background:#0d1018;color:#fff;border:1px solid var(--line);border-radius:8px;padding:10px;outline:0}.field textarea{min-height:90px;resize:vertical}.checks{display:flex;gap:15px;flex-wrap:wrap;margin-top:10px;font-size:12px}.checks input{accent-color:var(--gold)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap}.toolbar input{flex:1;min-width:180px;background:#0d1018;color:#fff;border:1px solid var(--line);border-radius:8px;padding:10px}.tablewrap{overflow:auto;margin-top:10px}.table{width:100%;min-width:850px;border-collapse:collapse}.table th,.table td{padding:9px;border-bottom:1px solid var(--line);text-align:left;font-size:11px}.table th{color:var(--gold);font-size:10px}.thumb{width:52px;height:68px;object-fit:cover;border-radius:6px;background:#242936}.pill{font-size:9px;border:1px solid var(--line);border-radius:20px;padding:3px 7px;color:var(--muted)}.actions{display:flex;gap:5px;flex-wrap:wrap}.empty{text-align:center;color:var(--muted);padding:25px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.side{position:static;display:flex;overflow:auto;gap:4px}.side button{min-width:max-content}.stats{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.form{grid-template-columns:1fr}.full{grid-column:auto}.titlebar{flex-direction:column}.stats{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin"><div class="logo"><span>SM</span>ANIME <b>ADMIN</b></div><button class="btn" onclick="location.href='index.html'">← Website</button></div></header>
+<div class="layout">
+<aside class="side" id="nav">
+<button class="active" onclick="show('dashboard',this)">⌂ Dashboard</button>
+<button onclick="show('cards',this)">▣ All Cards</button>
+<button onclick="show('add',this)">＋ Add New Card</button>
+<button onclick="show('featured',this)">★ Latest / Featured</button>
+<button onclick="show('categories',this)">◈ Categories</button>
+<button onclick="show('settings',this)">⚙ Site Controls</button>
+</aside>
+<main id="main"></main>
+</div>
+<script>
+const KEY="SMANIME_ADMIN_PANEL_V1";let data=JSON.parse(localStorage.getItem(KEY)||"[]"),editing=null;
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+function save(){localStorage.setItem(KEY,JSON.stringify(data))}
+function sort(){data.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0))}
+function show(p,btn){
+ document.querySelectorAll("#nav button").forEach(x=>x.classList.remove("active"));if(btn)btn.classList.add("active");
+ ({dashboard,cards,add,featured,categories,settings}[p]||dashboard)();
+}
+function dashboard(){sort();main.innerHTML=`
+<div class="titlebar"><div><h1>Dashboard</h1><div class="muted">यह अलग panel है। अभी website से connect नहीं किया गया है।</div></div><button class="btn gold" onclick="show('add')">＋ New Card</button></div>
+<div class="stats"><div class="stat"><b>${data.length}</b><span>Total Cards</span></div><div class="stat"><b>${data.filter(x=>x.featured).length}</b><span>Featured</span></div><div class="stat"><b>${data.filter(x=>x.status!=="Hidden").length}</b><span>Visible</span></div><div class="stat"><b>${data.filter(x=>x.type==="Movie").length}</b><span>Movies</span></div></div>
+<div class="panel"><h2>Latest Card</h2>${data[0]?`<b>${esc(data[0].title)}</b><p class="muted">${esc(data[0].lang)} · ${esc(data[0].type)} · ${esc(data[0].eps)}</p><button class="btn" onclick="edit(${data[0].id})">Edit</button>`:`<div class="empty">पहले card को Add New Card से बनाइए।</div>`}</div>
+<div class="panel"><h2>क्या-क्या control होगा</h2><div class="muted">Title, thumbnail, description, language, genre, type, episodes, watch URL, download URL, Latest, Featured, visibility, edit, duplicate और delete.</div></div>`}
+function cards(){sort();main.innerHTML=`
+<div class="titlebar"><div><h1>All Cards</h1><div class="muted">हर card को यहाँ से पूरी तरह manage करें।</div></div><button class="btn gold" onclick="show('add')">＋ Add Card</button></div>
+<div class="panel"><div class="toolbar"><input id="search" placeholder="Search cards..." oninput="table()"><select id="type" onchange="table()"><option value="">All Types</option><option>TV</option><option>Movie</option><option>Series</option><option>OVA</option></select></div><div class="tablewrap"><table class="table"><thead><tr><th>Thumbnail</th><th>Title</th><th>Language</th><th>Type</th><th>Latest</th><th>Featured</th><th>Actions</th></tr></thead><tbody id="rows"></tbody></table></div></div>`;table()}
+function table(){sort();let q=(document.getElementById("search")?.value||"").toLowerCase(),t=document.getElementById("type")?.value||"";let a=data.filter(x=>(x.title+" "+x.lang+" "+(x.genres||[]).join(" ")).toLowerCase().includes(q)&&(t===""||x.type===t));rows.innerHTML=a.length?a.map(x=>`<tr><td>${x.image?`<img class="thumb" src="${esc(x.image)}">`:`<div class="thumb"></div>`}</td><td><b>${esc(x.title)}</b><br><span class="pill">${x.year}</span></td><td>${esc(x.lang)}</td><td>${esc(x.type)}</td><td>${x.latest?"✓":"—"}</td><td>${x.featured?"★":"—"}</td><td><div class="actions"><button class="btn" onclick="edit(${x.id})">Edit</button><button class="btn" onclick="copyCard(${x.id})">Copy</button><button class="btn red" onclick="del(${x.id})">Delete</button></div></td></tr>`).join(""):`<tr><td colspan="7" class="empty">No cards found.</td></tr>`}
+function add(){editing=null;main.innerHTML=form("Add New Card")}
+function form(title){return `<div class="titlebar"><div><h1>${title}</h1><div class="muted">Card की सारी details एक ही जगह से control करें।</div></div><button class="btn" onclick="show('cards')">← All Cards</button></div><div class="panel"><div class="form">
+<div class="field full"><label>Title *</label><input id="f_title" placeholder="Anime / Movie title"></div>
+<div class="field"><label>Year</label><input id="f_year" type="number" value="2026"></div><div class="field"><label>Type</label><select id="f_type"><option>TV</option><option>Movie</option><option>Series</option><option>OVA</option></select></div>
+<div class="field"><label>Language</label><input id="f_lang" placeholder="Hindi"></div><div class="field"><label>Episodes / Status</label><input id="f_eps" placeholder="12 / Ongoing / Movie"></div>
+<div class="field full"><label>Genres (comma separated)</label><input id="f_genres" placeholder="Action, Fantasy, Adventure"></div>
+<div class="field full"><label>Thumbnail URL</label><input id="f_image" placeholder="https://..."></div>
+<div class="field"><label>Watch URL</label><input id="f_watch" placeholder="https://..."></div><div class="field"><label>Download URL</label><input id="f_download" placeholder="https://..."></div>
+<div class="field full"><label>Description</label><textarea id="f_desc" placeholder="Description / synopsis"></textarea></div>
+</div><div class="checks"><label><input id="f_latest" type="checkbox"> Latest</label><label><input id="f_featured" type="checkbox"> Featured</label><label><input id="f_hidden" type="checkbox"> Hidden</label></div><div class="actions" style="margin-top:12px"><button class="btn gold" onclick="saveCard()">✓ Save Card</button><button class="btn" onclick="show('cards')">Cancel</button></div></div>`}
+function edit(id){editing=id;show("add");setTimeout(()=>{let x=data.find(a=>a.id===id);document.querySelector("#main h1").textContent="Edit Card";fill(x)},0)}
+function fill(x){f_title.value=x.title||"";f_year.value=x.year||2026;f_type.value=x.type||"TV";f_lang.value=x.lang||"";f_eps.value=x.eps||"";f_genres.value=(x.genres||[]).join(", ");f_image.value=x.image||"";f_watch.value=x.watch||"";f_download.value=x.download||"";f_desc.value=x.desc||"";f_latest.checked=!!x.latest;f_featured.checked=!!x.featured;f_hidden.checked=x.status==="Hidden"}
+function saveCard(){let title=f_title.value.trim();if(!title)return alert("Title required");let x={id:editing||Date.now(),title,year:+f_year.value||2026,type:f_type.value,lang:f_lang.value.trim()||"Hindi",eps:f_eps.value.trim()||"—",genres:f_genres.value.split(",").map(x=>x.trim()).filter(Boolean),image:f_image.value.trim(),watch:f_watch.value.trim(),download:f_download.value.trim(),desc:f_desc.value.trim(),latest:f_latest.checked,featured:f_featured.checked,status:f_hidden.checked?"Hidden":"Visible",createdAt:editing?(data.find(a=>a.id===editing)?.createdAt||Date.now()):Date.now()};if(x.latest)data.forEach(a=>a.latest=false);if(editing){let i=data.findIndex(a=>a.id===editing);data[i]=x}else data.unshift(x);save();alert(editing?"Card updated":"Card added — यह सबसे नया card है");show("cards")}
+function copyCard(id){let x=data.find(a=>a.id===id),n={...x,id:Date.now(),title:x.title+" Copy",createdAt:Date.now(),latest:false};data.unshift(n);save();table()}
+function del(id){let x=data.find(a=>a.id===id);if(x&&confirm("Delete "+x.title+"?")){data=data.filter(a=>a.id!==id);save();table()}}
+function featured(){sort();main.innerHTML=`<div class="titlebar"><div><h1>Latest / Featured</h1><div class="muted">Homepage पर कौन-सा card ऊपर/featured दिखेगा, यहाँ control करें।</div></div></div><div class="panel">${data.map(x=>`<div style="display:flex;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:9px 0"><div style="flex:1"><b>${esc(x.title)}</b><div class="muted">${x.latest?"LATEST":"Normal"} · ${x.featured?"FEATURED":"Not featured"}</div></div><button class="btn" onclick="latest(${x.id})">${x.latest?"✓ Latest":"Set Latest"}</button><button class="btn" onclick="feat(${x.id})">${x.featured?"★ Featured":"☆ Featured"}</button></div>`).join("")||'<div class="empty">No cards</div>'}</div>`}
+function latest(id){data.forEach(x=>x.latest=false);let x=data.find(a=>a.id===id);if(x)x.latest=true;save();featured()}
+function feat(id){let x=data.find(a=>a.id===id);if(x)x.featured=!x.featured;save();featured()}
+function categories(){let l=[...new Set(data.map(x=>x.lang).filter(Boolean))],g=[...new Set(data.flatMap(x=>x.genres||[]))];main.innerHTML=`<div class="titlebar"><div><h1>Categories</h1><div class="muted">Language और Genre का overview/control area.</div></div></div><div class="stats"><div class="panel"><h2>Languages</h2>${l.join("<br>")||"No data"}</div><div class="panel"><h2>Genres</h2>${g.join("<br>")||"No data"}</div><div class="panel"><h2>Types</h2>TV<br>Movie<br>Series<br>OVA</div></div>`}
+function settings(){main.innerHTML=`<div class="titlebar"><div><h1>Site Controls</h1><div class="muted">Pagination और homepage feature controls का design.</div></div></div><div class="panel"><h2>Homepage</h2><div class="checks"><label><input type="checkbox" checked> Latest Updates</label><label><input type="checkbox" checked> Popular</label><label><input type="checkbox" checked> Languages</label><label><input type="checkbox" checked> Genres</label><label><input type="checkbox" checked> Schedule</label></div></div><div class="panel"><h2>Pagination</h2><div class="form"><div class="field"><label>Cards per page</label><select><option>8</option><option>12</option><option>16</option><option>20</option></select></div><div class="field"><label>Style</label><select><option>1 2 3 … 40 Next</option><option>Previous 1 2 3 Next</option></select></div></div></div><div class="panel"><h2>Backup</h2><button class="btn green" onclick="exportData()">Export JSON</button></div>`}
+function exportData(){let b=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="smanime-admin-backup.json";a.click()}
+show("dashboard");
+</script>
+</body>
+</html>
